@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>APIX-Testing Platform</title>
+</head>
+<body>
+<h1>Login Page</h1>
+<form id=login_form action="http://apitesting.developer.vodafone.com:/testing_login">
+<label for="username">Username:</label><br>
+  <input type="text" id="username" name="username"><br>
+  <label for="pwd">Password:</label><br>
+  <input type="password" id="pwd" name="pwd">
+  <input type="submit" value="Submit">
+  <script>
+  $('#login_form').submit(function () {
+            // we stoped it
+            event.preventDefault();
+            var username = $('#username').val();
+            var password = $("#pwd").val();
+fetch('http://apitesting.developer.vodafone.com:/testing_login', {
+                            method: 'GET',
+                            //body: formData,
+                            headers: {
+                                'Username': username,
+                                'Password': password,
+                                
+                            }
+                        }).then((result) => {
+                            if (result.status !== 200) {
+                                $("#result").text("Error!")    
+                            } else {
+                                $("#result").text("Success!!!")
+                            }
+                        })
+                        .catch((error) => {
+                            $("#result").text("Error!")
+                        });
+                });
+            });
+        });
+    </script>
+</form>
+</body>
+
+</html>
